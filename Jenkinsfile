@@ -2,18 +2,30 @@ pipeline {
     agent any
 
     stages {
-        stage('Hello') {
+        stage('initializing') {
             steps {
-                echo 'Hello World'
+                sh 'terraform init'
             }
         }
-        stage('test') {
+        stage('formating') {
             steps {
-                echo 'Hello test'
+                sh 'terraform fmt'
             }
         }
-         stage('package') {
+         stage('validating') {
             steps {
-                echo 'Hello package'
+                sh 'terraform validate'
             }
         }
+         stage('planing') {
+            steps {
+                sh 'terraform plan'
+            }
+        }
+         stage('applying') {
+            steps {
+                sh 'terraform apply --auto-approve'
+            }
+        }
+    }
+}
